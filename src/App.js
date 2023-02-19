@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import FormBlog from './components/FormBlog'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -52,6 +53,13 @@ const App = () => {
     window.localStorage.removeItem('loggedUser')
   }
 
+  function onError (error) {
+    console.log(error)
+  }
+
+  function onUpdate () {
+    blogService.getAll().then(blogs => setBlogs( blogs ))
+  }
 
   if (user === null) {
     return (
@@ -91,6 +99,8 @@ const App = () => {
           <button onClick={logout}>logout</button>
         </p>
       </div>
+      <FormBlog onError={onError} onUpdate={onUpdate} userId={user.id}/>
+
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
