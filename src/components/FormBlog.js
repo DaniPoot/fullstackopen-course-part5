@@ -34,7 +34,7 @@ export default function FormBlog({ userId, onUpdate, onError }) {
     }
     try {
       await blogService.create(blog)
-      onUpdate()
+      onUpdate(blog)
     } catch (error) {
       onError(error)
     }
