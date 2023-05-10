@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
+import { Togglable } from "./components/Togglable"
 import FormBlog from './components/FormBlog'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -12,6 +13,7 @@ const App = () => {
   const [message, setMessage] = useState(null)
   const [type, setType] = useState('')
   const [user, setUser] = useState(null)
+  const blogFormRef = useRef()
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -68,6 +70,7 @@ const App = () => {
   function onUpdate (blog) {
     setNotification(`a new blog ${blog.title} by ${blog.author}`, 'success')
     blogService.getAll().then(blogs => setBlogs( blogs ))
+    blogFormRef.current.toggleVisibility()
   }
 
   if (user === null) {
@@ -110,7 +113,9 @@ const App = () => {
           <button onClick={logout}>logout</button>
         </p>
       </div>
-      <FormBlog onError={onError} onUpdate={onUpdate} userId={user.id}/>
+      <Togglable buttonLabel="new blog" ref={blogFormRef}>
+        <FormBlog onError={onError} onUpdate={onUpdate} userId={user.id}/>
+      </Togglable>
 
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
