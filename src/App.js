@@ -53,6 +53,14 @@ const App = () => {
     }
   }
 
+  async function updateBlog (id, newBlog) {
+    await blogService.update(id, newBlog)
+  }
+
+  async function removeBlog (id) {
+    await blogService.remove(blog.id)
+  }
+
   const setNotification = (message, notificationType) => {
     setMessage(message)
     setType(notificationType)
@@ -123,7 +131,13 @@ const App = () => {
       </Togglable>
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} update={updateBlogList} />
+        <Blog 
+          key={blog.id}
+          blog={blog} 
+          update={updateBlogList}
+          updateBlog={updateBlog}
+          removeBlog={removeBlog}
+          />
       )}
     </div>
   )

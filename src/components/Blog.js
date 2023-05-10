@@ -10,7 +10,7 @@ const blogStyle = {
   marginBottom: 5
 }
 
-const Blog = ({ blog, update }) => {
+const Blog = ({ blog, update, updateBlog, removeBlog }) => {
   const [visible, setVisible] = useState(false)
 
   const hideWhenVisible = { display: visible ? 'none' : '' }
@@ -19,14 +19,14 @@ const Blog = ({ blog, update }) => {
   const like = async event => {
     const likes = blog.likes + 1
     const newBlog = { ...blog, likes }
-    await blogService.update(blog.id, newBlog)
+    await updateBlog(blog.id, newBlog)
     update()
   }
 
   const remove = async event => {
     event.preventDefault()
     if (window.confirm(`remove blog ${blog.title}) by ${blog.author}`)) {
-      await blogService.remove(blog.id)
+      await removeBlog(blog.id)
       update()
     }
   }
@@ -45,7 +45,7 @@ const Blog = ({ blog, update }) => {
           <span className='blog-likes'>
             {blog.likes} likes
           </span>
-          <button onClick={like}>like</button>
+          <button className='blog-like-button' onClick={like}>like</button>
         </div>
         <div onClick={remove}>
           <button type="submit">remove</button>

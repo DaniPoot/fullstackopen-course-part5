@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
+import userEvent from '@testing-library/user-event'
 import { render, cleanup, fireEvent } from '@testing-library/react'
 import Blog from './Blog'
 
@@ -21,10 +22,14 @@ describe.only('<Blog />', () => {
     }
 
     mockHandler = jest.fn()
+    mockUpdate = jest.fn()
+    mockRemove = jest.fn()
     component = render(
       <Blog
         blog={blog}
         update={mockHandler}
+        updateBlog={mockUpdate}
+        removeBlog={mockRemove}
       />
     )
   })
@@ -52,5 +57,15 @@ describe.only('<Blog />', () => {
     const likes = component.container.querySelector('.blog-likes')
 
     expect(likes).toHaveTextContent('19 likes')
+  })
+
+  it('click like should call event handler', async () => {
+    const button = component.getByText('view')
+    fireEvent.click(button)
+
+    const like = component.container.querySelector('.blog-like-button')
+    await fireEvent.click(like)
+
+    expect(mockHandler).toHaveBeenCalled()
   })
 })
