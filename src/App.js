@@ -31,7 +31,10 @@ const App = () => {
   }, [user])
 
   function updateBlogList () {
-    blogService.getAll().then(blogs => setBlogs( blogs ))
+    blogService.getAll().then(blogs => {
+      const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
+      setBlogs( sortedBlogs )
+    })
   }
 
  async function handleLogin (event) {
