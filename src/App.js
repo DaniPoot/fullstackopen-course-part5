@@ -26,11 +26,13 @@ const App = () => {
 
   useEffect(() => {
     if (user !== null) {
-      blogService.getAll().then(blogs =>
-        setBlogs( blogs )
-      )
+      updateBlogList()
     }
   }, [user])
+
+  function updateBlogList () {
+    blogService.getAll().then(blogs => setBlogs( blogs ))
+  }
 
  async function handleLogin (event) {
     event.preventDefault()
@@ -69,7 +71,7 @@ const App = () => {
 
   function onUpdate (blog) {
     setNotification(`a new blog ${blog.title} by ${blog.author}`, 'success')
-    blogService.getAll().then(blogs => setBlogs( blogs ))
+    updateBlogList()
     blogFormRef.current.toggleVisibility()
   }
 
@@ -118,7 +120,7 @@ const App = () => {
       </Togglable>
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} update={updateBlogList} />
       )}
     </div>
   )
