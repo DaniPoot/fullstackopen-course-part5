@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import blogService from '../services/blogs'
 
@@ -32,23 +32,27 @@ const Blog = ({ blog, update }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className='blog'>
       <div>
-        {blog.title}
+        <span className='blog-title'>
+          {blog.title}
+        </span> 
         <button onClick={() => setVisible(!visible)} > { visible ? 'hide' : 'view' } </button>
       </div>
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className='blog-info'>
         <a href={blog.url}> {blog.url} </a> 
         <div>
-          {blog.likes} likes
+          <span className='blog-likes'>
+            {blog.likes} likes
+          </span>
           <button onClick={like}>like</button>
-        </div>
-        <div>
-          {blog.author}
         </div>
         <div onClick={remove}>
           <button type="submit">remove</button>
         </div>
+      </div>
+      <div className='blog-author'>
+        {blog.author}
       </div>
     </div>  
   )
