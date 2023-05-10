@@ -22,6 +22,13 @@ const Blog = ({blog, update}) => {
     update()
   }
 
+  const remove = async event => {
+    event.preventDefault()
+    if (window.confirm(`remove blog ${blog.title}) by ${blog.author}`)) {
+      await blogService.remove(blog.id)
+      update()
+    }
+  }
 
   return (
     <div style={blogStyle}>
@@ -37,6 +44,9 @@ const Blog = ({blog, update}) => {
         </div>
         <div>
           {blog.author}
+        </div>
+        <div onClick={remove}>
+          <button type="submit">remove</button>
         </div>
       </div>
     </div>  
