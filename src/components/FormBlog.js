@@ -1,8 +1,7 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import PropTypes from 'prop-types'
-import blogService from '../services/blogs'
 
-export default function FormBlog({ userId, onUpdate, onError }) {
+export default function FormBlog({ createBlog }) {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -25,20 +24,15 @@ export default function FormBlog({ userId, onUpdate, onError }) {
     setAuthor('')
     setUrl('')
   }
+
   const onSubmit = async (event) => {
     event.preventDefault()
     const blog = {
       title,
       author,
-      url,
-      userId
+      url
     }
-    try {
-      await blogService.create(blog)
-      onUpdate(blog)
-    } catch (error) {
-      onError(error)
-    }
+    await createBlog(blog)
     setDefaulValues()
   }
 
@@ -50,6 +44,7 @@ export default function FormBlog({ userId, onUpdate, onError }) {
         <div>
           <label>title:</label>
           <input
+            placeholder="Blog title"
             type="text"
             value={title}
             onChange={onChangeTitle}
@@ -58,6 +53,7 @@ export default function FormBlog({ userId, onUpdate, onError }) {
         <div>
           <label>author:</label>
           <input
+            placeholder="Blog author"
             type="text"
             value={author}
             onChange={onChangeAuthor}
@@ -66,6 +62,7 @@ export default function FormBlog({ userId, onUpdate, onError }) {
         <div>
           <label>url:</label>
           <input 
+            placeholder="Blog url"
             type="text"
             value={url}
             onChange={onChangeUrl}
@@ -79,7 +76,5 @@ export default function FormBlog({ userId, onUpdate, onError }) {
 }
 
 FormBlog.propTypes = {
-  userId: PropTypes.string.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  onError: PropTypes.func.isRequired
+  createBlog: PropTypes.func.isRequired
 }

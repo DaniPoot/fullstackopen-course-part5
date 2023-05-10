@@ -58,7 +58,7 @@ const App = () => {
   }
 
   async function removeBlog (id) {
-    await blogService.remove(blog.id)
+    await blogService.remove(id)
   }
 
   const setNotification = (message, notificationType) => {
@@ -84,6 +84,15 @@ const App = () => {
     setNotification(`a new blog ${blog.title} by ${blog.author}`, 'success')
     updateBlogList()
     blogFormRef.current.toggleVisibility()
+  }
+  
+  const createBlog = async (blog) => {
+    try {
+      await blogService.create({ ...blog, userId: user.id })
+      onUpdate(blog)
+    } catch (error) {
+      onError(error)
+    }
   }
 
   if (user === null) {
@@ -127,7 +136,7 @@ const App = () => {
         </p>
       </div>
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
-        <FormBlog onError={onError} onUpdate={onUpdate} userId={user.id}/>
+        <FormBlog createBlog={createBlog} />
       </Togglable>
 
       {blogs.map(blog =>
