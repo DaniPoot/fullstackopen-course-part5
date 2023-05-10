@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 import blogService from '../services/blogs'
 
 const blogStyle = {
@@ -9,7 +10,7 @@ const blogStyle = {
   marginBottom: 5
 }
 
-const Blog = ({blog, update}) => {
+const Blog = ({ blog, update }) => {
   const [visible, setVisible] = useState(false)
 
   const hideWhenVisible = { display: visible ? 'none' : '' }
@@ -51,6 +52,11 @@ const Blog = ({blog, update}) => {
       </div>
     </div>  
   )
+}
+
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  update: PropTypes.func.isRequired
 }
 
 export default Blog

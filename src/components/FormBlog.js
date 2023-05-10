@@ -1,4 +1,5 @@
 import { useState } from "react"
+import PropTypes from 'prop-types'
 import blogService from '../services/blogs'
 
 export default function FormBlog({ userId, onUpdate, onError }) {
@@ -75,4 +76,10 @@ export default function FormBlog({ userId, onUpdate, onError }) {
       </form>
     </div>
   )
+}
+
+FormBlog.propTypes = {
+  userId: PropTypes.string.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired
 }
