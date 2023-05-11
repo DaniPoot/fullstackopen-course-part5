@@ -1,25 +1,39 @@
-export default {
+module.exports = {
+  'parser': '@babel/eslint-parser',
+  'settings': {
+    'react': {
+      'version': 'detect'
+    }
+  },
   'env': {
     'browser': true,
-    'es6': true,
-    'jest/globals': true
+    'commonjs': true,
+    'es2021': true,
+    'node': true,
+    'jest': true,
+    'cypress/globals': true
   },
   'extends': [
     'eslint:recommended',
-    'plugin:react/recommended'
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:cypress/recommended'
+  ],
+  'overrides': [
   ],
   'parserOptions': {
-    'ecmaFeatures': {
-      'jsx': true
-    },
-    'ecmaVersion': 2018,
+    'ecmaVersion': 'latest',
     'sourceType': 'module'
   },
   'plugins': [
-    'react', 'jest'
+    'react',
+    'jest',
   ],
   'rules': {
-    'indent': [ 'error', 2 ],
+    'indent': [
+      'error',
+      2
+    ],
     'linebreak-style': [
       'error',
       'unix'
@@ -43,10 +57,5 @@ export default {
     'no-console': 0,
     'react/prop-types': 0,
     'react/react-in-jsx-scope': 'off'
-  },
-  'settings': {
-    'react': {
-      'version': 'detect'
-    }
   }
 }

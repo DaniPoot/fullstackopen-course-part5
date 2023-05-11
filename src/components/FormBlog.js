@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 export default function FormBlog({ createBlog }) {
@@ -44,6 +45,7 @@ export default function FormBlog({ createBlog }) {
         <div>
           <label>title:</label>
           <input
+            id="title"
             placeholder="Blog title"
             type="text"
             value={title}
@@ -53,6 +55,7 @@ export default function FormBlog({ createBlog }) {
         <div>
           <label>author:</label>
           <input
+            id="author"
             placeholder="Blog author"
             type="text"
             value={author}
@@ -61,7 +64,8 @@ export default function FormBlog({ createBlog }) {
         </div>
         <div>
           <label>url:</label>
-          <input 
+          <input
+            id="url"
             placeholder="Blog url"
             type="text"
             value={url}
@@ -69,7 +73,7 @@ export default function FormBlog({ createBlog }) {
           />
         </div>
 
-        <button type="submit">Create</button>
+        <button id='publish-button' type="submit">Create</button>
       </form>
     </div>
   )

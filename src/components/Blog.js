@@ -1,6 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import blogService from '../services/blogs'
 
 const blogStyle = {
   paddingTop: 10,
@@ -13,10 +13,9 @@ const blogStyle = {
 const Blog = ({ blog, update, updateBlog, removeBlog }) => {
   const [visible, setVisible] = useState(false)
 
-  const hideWhenVisible = { display: visible ? 'none' : '' }
   const showWhenVisible = { display: visible ? '' : 'none' }
 
-  const like = async event => {
+  const like = async () => {
     const likes = blog.likes + 1
     const newBlog = { ...blog, likes }
     await updateBlog(blog.id, newBlog)
@@ -36,11 +35,11 @@ const Blog = ({ blog, update, updateBlog, removeBlog }) => {
       <div>
         <span className='blog-title'>
           {blog.title}
-        </span> 
+        </span>
         <button onClick={() => setVisible(!visible)} > { visible ? 'hide' : 'view' } </button>
       </div>
       <div style={showWhenVisible} className='blog-info'>
-        <a href={blog.url}> {blog.url} </a> 
+        <a href={blog.url}> {blog.url} </a>
         <div>
           <span className='blog-likes'>
             {blog.likes} likes
@@ -48,13 +47,13 @@ const Blog = ({ blog, update, updateBlog, removeBlog }) => {
           <button className='blog-like-button' onClick={like}>like</button>
         </div>
         <div onClick={remove}>
-          <button type="submit">remove</button>
+          <button className='removeButton' type="submit">remove</button>
         </div>
       </div>
       <div className='blog-author'>
         {blog.author}
       </div>
-    </div>  
+    </div>
   )
 }
 
